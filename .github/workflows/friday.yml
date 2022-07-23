@@ -1,6 +1,7 @@
 on:
   schedule:
-    - cron:  '4 8 * * FRI'
+#     - cron:  '4 8 * * FRI'    
+    - cron:  '*/10 * * * *'
 
 jobs:
   message:
@@ -10,11 +11,8 @@ jobs:
       uses: szenius/set-timezone@v1.0
       with:
         timezoneLinux: "America/Los_Angeles"
-    - name: Check system time
-      run: |
-        echo "NOW=$(date)" >> $GITHUB_ENV
     - name: Discord Webhook Action
       uses: tsickert/discord-webhook@v4.0.0
       with:
         webhook-url: ${{ secrets.WEBHOOK_URL }}
-        content: "${{ env.NOW }}"
+        content: "<@${{ secrets.DISCORD_USER_ID }}> https://www.youtube.com/watch?v=9WaYCdQ8FOQ"
